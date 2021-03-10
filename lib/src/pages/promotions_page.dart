@@ -15,8 +15,8 @@ class PromotionsPage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color.fromRGBO(47, 89, 210, 1),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40)
+                bottomLeft: Radius.circular(35),
+                bottomRight: Radius.circular(35)
               ),
               boxShadow: [
                 BoxShadow(
@@ -44,18 +44,19 @@ class PromotionsPage extends StatelessWidget {
                         shape: CircleBorder(),
                         color: Color.fromRGBO(141, 148, 195, .6),
                         onPressed: () {},
-                        child: Icon(Icons.arrow_back, color: Colors.white,),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
                       ),
-
                       Container(
-                        margin: EdgeInsets.only(left: 22),
+                        margin: EdgeInsets.only(left: 20),
                         child: Text(
                           "Offers & Promotions",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.white,
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -95,16 +96,12 @@ class PromotionsPage extends StatelessWidget {
                         title: Text(
                           'Refer Friends',
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 21
+                            fontWeight: FontWeight.w600, fontSize: 21
                           ),
                         ),
                         subtitle: Text(
                           'Earn money from every friend',
-                          style: TextStyle(
-                            fontSize: 15.5,
-                            color: Colors.grey
-                          ),
+                          style: TextStyle(fontSize: 15.5, color: Colors.grey),
                         ),
                         trailing: Icon(Icons.arrow_forward_ios_rounded),
                       ),
@@ -112,42 +109,7 @@ class PromotionsPage extends StatelessWidget {
                   ),
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Discounts',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GestureDetector(
-                      child: Text(
-                        "View all",
-                        style: TextStyle(color: Colors.blue, fontSize: 18)
-                      ),
-                      onTap: () {
-                        print('Ver todo');
-                      }
-                    ),
-                  ],
-                ),
-
-                SizedBox(
-                  height: 250.0,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    itemBuilder: (BuildContext context, int index) {
-                      if(index % 2 == 0) {
-                        return _buildCarouselItem(context, index ~/ 2);
-                      }
-
-                      return SizedBox(width: 20,);
-                    },
-                  ),
-                ),
+                _discountSection(),
 
                 Text(
                   'Upgrades',
@@ -170,55 +132,53 @@ class PromotionsPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/img/background_card_image.jpg"),
+                        image:
+                            AssetImage("assets/img/background_card_image.jpg"),
                         fit: BoxFit.cover,
                       ),
                     ),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Insifr Business You",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Insifr Business You",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
-
-                          SizedBox(height: 10,),
-
-                          Text(
-                            "Travel Without the fees",
-                            style: TextStyle(
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Travel Without the fees",
+                          style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: Colors.grey[800]
-                            ),
+                              color: Colors.grey[800]),
+                        ),
+                        SizedBox(
+                          height: 60,
+                        ),
+                        FlatButton(
+                          height: 50,
+                          colorBrightness: Brightness.dark,
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-
-                          SizedBox(height: 60,),
-
-                          FlatButton(
-                            height: 50,
-                            colorBrightness: Brightness.dark,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              'Get Insifr Business You',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.orange
-                              ),
-                            ),
-                            onPressed: () {
-                              print("flat button tapped");
-                            }
-                          )
-                        ],
-                      ),
+                          child: Text(
+                            'Get Insifr Business You',
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.orange),
+                          ),
+                          onPressed: () {
+                            print("flat button tapped");
+                          }
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -227,6 +187,47 @@ class PromotionsPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _discountSection() {
+    return Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Discounts',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          GestureDetector(
+              child: Text("View all",
+                style: TextStyle(color: Colors.blue, fontSize: 18)
+              ),
+              onTap: () {
+                print('Ver todo');
+              }
+            ),
+        ],
+      ),
+      SizedBox(
+        height: 250.0,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(vertical: 16.0),
+          itemBuilder: (BuildContext context, int index) {
+            if (index % 2 == 0) {
+              return _buildCarouselItem(context, index ~/ 2);
+            }
+
+            return SizedBox(
+              width: 20,
+            );
+          },
+        ),
+      ),
+    ]);
   }
 
   Widget _buildCarouselItem(BuildContext context, int itemIndex) {
@@ -247,15 +248,16 @@ class PromotionsPage extends StatelessWidget {
               'assets/img/blinkist.png',
               height: 70,
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               'Blinkist',
-              style: TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w600
-              ),
+              style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: 6,),
+            SizedBox(
+              height: 6,
+            ),
             Text(
               'See Partner Deal',
               style: TextStyle(

@@ -34,7 +34,7 @@ DrawCircle({this.center, this.radius});
 @override
   void paint(Canvas canvas, Size size) {
     Paint brush = new Paint()
-      ..color = Color.fromRGBO(141, 148, 195, 0.1)
+      ..color = Color.fromRGBO(141, 148, 195, 0.15)
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.fill
       ..strokeWidth = 30;

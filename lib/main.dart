@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.green
         ),
-        initialRoute: 'sections',
+        initialRoute: 'login',
         routes: {
           '/': (BuildContext context) => HomePage(),
           'favorites': (BuildContext context) => FavoritesPage(),

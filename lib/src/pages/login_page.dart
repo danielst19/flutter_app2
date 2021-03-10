@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_4/src/bloc/login_bloc.dart';
 import 'package:flutter_app_4/src/providers/login_provider.dart';
+import 'package:flutter_app_4/src/services/login_service.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -10,27 +11,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _service = LoginService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          height: double.infinity,
-          color: Colors.grey[200],
-          child: Stack(
-            children: [
-              _header(),
-              _login(),
-            ],
-          ),
+      body: Container(
+        height: double.infinity,
+        color: Colors.grey[200],
+        child: Stack(
+          children: [
+            _header(),
+            _login(),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.green,
-          child: Icon(Icons.fingerprint, size: 42, color: Colors.white,),
-          onPressed: () {
-            _showSimpleModalDialog(context);
-          },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        child: Icon(
+          Icons.fingerprint,
+          size: 42,
+          color: Colors.white,
         ),
-      );
+        onPressed: () {
+          _showSimpleModalDialog(context);
+        },
+      ),
+    );
   }
 
   Widget _login() {
@@ -45,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
               height: size.height * 0.35,
             ),
           ),
-
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -65,22 +71,38 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Iniciar sesión', style: TextStyle(fontSize: 20),),
-                  SizedBox(height: 20,),
+                  Text(
+                    'Iniciar sesión',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   _createEmailInput(bloc),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   _createPasswordInput(bloc),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   FlatButton.icon(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.grey,
-                    icon: Icon(Icons.login, color: Colors.white,),
-                    label: Text('Ingresar', style: TextStyle(color: Colors.white, fontSize: 21),),
-                    onPressed: (){
-                      
+                    icon: Icon(
+                      Icons.login,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      'Ingresar',
+                      style: TextStyle(color: Colors.white, fontSize: 21),
+                    ),
+                    onPressed: () {
+                      _handleLogin(bloc);
                     }
                   ),
                 ],
@@ -103,9 +125,7 @@ class _LoginPageState extends State<LoginPage> {
             labelText: 'Email',
             hintText: 'Ingrese email',
             suffixIcon: Icon(Icons.mail_outline),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10)
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             errorText: snapshot.error
           ),
           onChanged: bloc.changeEmail,
@@ -124,9 +144,7 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecoration(
             labelText: 'Password',
             suffixIcon: Icon(Icons.lock_outline),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10)
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             errorText: snapshot.error
           ),
           onChanged: bloc.changePassword,
@@ -150,24 +168,32 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             CircleAvatar(
               radius: 70,
-              backgroundImage: NetworkImage('https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/04/15912219730543.jpg'),
+              backgroundImage: NetworkImage(
+                'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2020/06/04/15912219730543.jpg'
+              ),
             ),
-            SizedBox(height: 10,),
-            Text('Personal Soft', style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Personal Soft',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold
+              ),
+            )
           ],
         ),
       ),
     );
 
     return Stack(
-      children: [
-        background,
-        background2
-      ],
+      children: [background, background2],
     );
   }
 
-  _showSimpleModalDialog(context){
+  _showSimpleModalDialog(context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -246,7 +272,7 @@ class _LoginPageState extends State<LoginPage> {
                     RichText(
                       textAlign: TextAlign.justify,
                       text: TextSpan(
-                        text:"Por favor coloque la huella sobre el lector para continuar.",
+                        text: "Por favor coloque la huella sobre el lector para continuar.",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -264,50 +290,14 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         );
-      });
-    /* showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius:BorderRadius.circular(20.0)),
-            child: Container(
-            constraints: BoxConstraints(maxHeight: 200),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    textAlign: TextAlign.justify,
-                    text: TextSpan(
-                      text:"Escanear huella",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Colors.black,
-                        wordSpacing: 1
-                      )
-                    ),
-                  ),
+      }
+    );
+  }
 
-                  FlatButton.icon(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: Colors.grey,
-                    icon: Icon(Icons.close, color: Colors.white,),
-                    label: Text('Cancelar', style: TextStyle(color: Colors.white, fontSize: 21),),
-                    onPressed: (){
-                      
-                    }
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-    }); */
+  void _handleLogin(LoginBloc bloc) async {
+    await _service.login(
+      bloc.email,
+      bloc.password
+    );
   }
 }
